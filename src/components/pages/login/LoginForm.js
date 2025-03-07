@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     //state
-    const [ username, setUsername] = useState("bob")
+    const [ username, setUsername] = useState("")
+    const navigate = useNavigate()
+    
     //comportements
     const handleChange = (e) => {
         setUsername(e.target.value)
@@ -10,9 +13,10 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        alert(`Bonjour ${username}`)
+        navigate(`order/${username}`)
         setUsername("")
     }
+     
     //d'affichage
     return ( 
         <form onSubmit={handleSubmit}>
