@@ -3,9 +3,9 @@ import logo from "../../assets/logo-orange.png"
 import styled from 'styled-components';
 import { theme } from "../../theme"
 
-const Logo = ({className}) => {
+const Logo = ({className, onClick}) => {
     return (
-        <LogoStyled className={className}>
+        <LogoStyled className={className} onClick={onClick}>
             <h1>CRAZEE</h1>
             <img src={logo} alt='mon logo' className='logo'/>
             <h1>BURGER</h1>
@@ -18,7 +18,6 @@ export default Logo;
 const LogoStyled = styled.div`
   display: flex;
   align-items: center;
-  transform: scale(2.5);
 
   h1 {
     display: inline;
