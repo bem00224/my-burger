@@ -3,9 +3,9 @@ import logo from "../../assets/logo-orange.png"
 import styled from 'styled-components';
 import { theme } from "../../theme"
 
-const Logo = () => {
+const Logo = ({className}) => {
     return (
-        <LogoStyled>
+        <LogoStyled className={className}>
             <h1>CRAZEE</h1>
             <img src={logo} alt='mon logo' className='logo'/>
             <h1>BURGER</h1>

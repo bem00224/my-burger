@@ -1,18 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useParams } from 'react-router-dom';
+import NavbarRight from './NavbarRight';
+import Logo from '../../../reusable-ui/Logo';
 
 const Navbar = () => {
-    const { username } = useParams()
     return (
         <NavbarStyled>
-            <div>
-                Logo
-            </div>
-            <div>
-            <h1>Bonjour {username} </h1>
-            <button><Link to="/">Déconnexion</Link></button>
-            </div>
+            <Logo className="logo"/>
+            <NavbarRight/>
         </NavbarStyled>
     );
 }
@@ -25,4 +20,8 @@ const NavbarStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+
+  .logo {
+    transform: scale(1);
+  }
 `;
