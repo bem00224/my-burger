@@ -1,19 +1,15 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Profile from './Profile';
 
 const NavbarRight = () => {
     const { username } = useParams()
 
     return (
         <NavbarRightStyled>
-            {/*<div>
-                Navbar
-            </div>*/}
-            <div>
-                <h1>Bonjour {username} </h1>
-                <Link to="/">Déconnexion</Link>
-            </div>
+            {/* <div className="admin-button">Admin Button</div> */}
+            <Profile username={username} />
         </NavbarRightStyled>
     );
 }
@@ -21,5 +17,15 @@ const NavbarRight = () => {
 export default NavbarRight;
 
 const NavbarRightStyled = styled.div`
-  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  padding-right: 50px;
+
+  /* .admin-button {
+    background: lightblue;
+  } */
+
+  .profile {
+    background: yellow;
+  }
 `;
