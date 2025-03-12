@@ -12,7 +12,7 @@ const NavbarRight = () => {
             </div>*/}
             <div>
                 <h1>Bonjour {username} </h1>
-                <button><Link to="/">Déconnexion</Link></button>
+                <Link to="/">Déconnexion</Link>
             </div>
         </NavbarRightStyled>
     );
