@@ -1,14 +1,19 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import Navbar from './navbar/Navbar';
+import Main from './main/Main';
+import styled from 'styled-components';
 
 const OrderPage = () => {
-    const { username } = useParams()
+    
     return (
-        <div>
-            <h1>Bonjour {username} </h1>
-            <button><Link to="/">Déconnexion</Link></button>
-        </div>
+        <OrderPageStyled>
+            <Navbar />
+            <Main/>
+        </OrderPageStyled>
     );
 }
 
 export default OrderPage;
+const OrderPageStyled = styled.div`
+  border: 1px solid gray;
+`;
