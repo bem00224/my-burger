@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import Menu from './Menu';
 
 const Main = () => {
     return (
         <MainStyled>
-            Main
+            {/* <div className="basket">Basket</div> */}
+            <Menu />
         </MainStyled>
     );
 }
@@ -12,7 +14,6 @@ const Main = () => {
 export default Main;
 
 const MainStyled = styled.div`
-  border: 1px solid red;
+  border: 2px solid green;
   height: 100vh;
-  background-color: red;
 `;
