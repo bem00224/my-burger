@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = ({ Icon, label }) => {
+const Button = ({ Icon, label, className }) => {
     return (
-        <ButtonStyled>
+        <ButtonStyled className={className}>
             <span>{label}</span>
             <div>{Icon && Icon}</div>
         </ButtonStyled>
