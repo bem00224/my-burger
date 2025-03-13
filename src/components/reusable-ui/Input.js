@@ -6,7 +6,7 @@ export default function Input({placeholder, value, onChange, Icon}) {
   return (
     <InputStyled>
         {Icon && Icon}
-        <input placeholder={placeholder} value={value} onChange={onChange} />
+        <input placeholder={placeholder} value={value} onChange={onChange} required />
     </InputStyled>
   )
 }
