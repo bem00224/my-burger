@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Menu from './Menu';
 import { theme } from '../../../../theme/index'
+import Admin from '../admin/Admin';
+import OrderContext from '../../../../context/OrderContext';
 
 const Main = () => {
+  //state
+  const { isModeAdmin } = useContext(OrderContext)
+  //comportements
+  //affichage
+  
     return (
         <MainStyled>
             {/* <div className="basket">Basket</div> */}
             <Menu />
+            {isModeAdmin ? (<Admin/>) : "" }
         </MainStyled>
     );
 }
