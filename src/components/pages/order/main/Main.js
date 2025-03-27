@@ -14,8 +14,10 @@ const Main = () => {
     return (
         <MainStyled>
             {/* <div className="basket">Basket</div> */}
-            <Menu />
-            {isModeAdmin ? (<Admin/>) : "" }
+            <div className="menu-and-admin">
+              <Menu />
+              {isModeAdmin ? (<Admin/>) : "" }
+            </div>
         </MainStyled>
     );
 }
@@ -25,16 +27,23 @@ export default Main;
 const MainStyled = styled.div`
   background: ${theme.colors.background_white};
   flex: 1; // or you can also use this : height: calc(95vh - 10vh);
+  height: calc(95vh - 10vh);
 
   border-bottom-left-radius: ${theme.borderRadius.extraRound};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};
-  box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: ${theme.shadows.strong};
 
   display: grid;
   grid-template-columns: 1fr;
 
-  overflow-y: scroll;
-  /* .basket {
+  .basket {
     background: pink;
-  } */
+    border: 1px solid black;
+  }
+
+  .menu-and-admin {
+    position: relative;
+    display: grid;
+    overflow-y: hidden;
+  }
 `
