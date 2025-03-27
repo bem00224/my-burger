@@ -4,7 +4,7 @@ import { theme } from '../../../../theme';
 import OrderContext from '../../../../context/OrderContext';
 import Tab from '../../../reusable-ui/Tab';
 import { FaChevronUp,FaChevronDown } from "react-icons/fa";
-import { tabsConfig } from './tabsConfig';
+import { getTabsConfig } from './tabsConfig';
 
 
 
@@ -12,22 +12,8 @@ export default function AdminTabs() {
   //state
   const { isCollapsed, setIsCollapsed, currentTabSelected, setCurrentTabSelected } = useContext(OrderContext)
   
-  const tabs = tabsConfig(currentTabSelected)
+  const tabs = getTabsConfig(currentTabSelected)
   //comportements
-  
-  /*const selectTab = (tabSelected) => {
-    setIsCollapsed(false)
-
-    if (tabSelected === "add") {
-      setIsAddSelected(true)
-      setIsEditSelected(false)
-    }
-
-    if (tabSelected === "edit") {
-      setIsEditSelected(true)
-      setIsAddSelected(false)
-    }
-  }*/
   const selectTab = (tabSelected) => {
     setIsCollapsed(false)
     setCurrentTabSelected(tabSelected)
@@ -41,27 +27,13 @@ export default function AdminTabs() {
         onClick={() => setIsCollapsed(!isCollapsed) }
         className={isCollapsed ? "is-active" : ""}
       />
-      {/*
-      <Tab 
-        Icon={<AiOutlinePlus />}
-        label={"Ajouter un produit"}
-        onClick={() => selectTab("add")}
-        className={isAddSelected ? "is-active" : ""}
-      />
-      <Tab 
-        Icon={<MdModeEditOutline />}
-        label={"Modifier un produit"}
-        onClick={() => selectTab("edit")}
-        className={isEditSelected ? "is-active" : ""}
-      /> 
-      */}
       {tabs.map((tab) => (
         <Tab 
           key={tab.index}
           Icon={tab.icon}
           label={tab.label}
           onClick={ () => selectTab(tab.index) }
-          className={ tab.className }
+          className= { currentTabSelected===tab.index ? "is-active" : ""}
         />
       ) ) }
     </AdminTabsStyled>
@@ -79,16 +51,37 @@ const AdminTabsStyled = styled.div`
 
   button {
     margin-left: 1px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    .btn-icon {
-      padding-right: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
   }
 `;
+
+/*
+  Autre methode
+  comportements
+  
+  const selectTab = (tabSelected) => {
+    setIsCollapsed(false)
+
+    if (tabSelected === "add") {
+      setIsAddSelected(true)
+      setIsEditSelected(false)
+    }
+
+    if (tabSelected === "edit") {
+      setIsEditSelected(true)
+      setIsAddSelected(false)
+    }
+  }
+    affichage
+  <Tab 
+    Icon={<AiOutlinePlus />}
+    label={"Ajouter un produit"}
+    onClick={() => selectTab("add")}
+    className={isAddSelected ? "is-active" : ""}
+  />
+  <Tab 
+    Icon={<MdModeEditOutline />}
+    label={"Modifier un produit"}
+    onClick={() => selectTab("edit")}
+    className={isEditSelected ? "is-active" : ""}
+  /> 
+  */

@@ -45,7 +45,7 @@ const TabStyled = styled.button`
     margin-left: 13px;
   }
 
-  :hover {
+  &:hover {
     border-bottom: 2px solid ${theme.colors.white};
     text-decoration: underline;
   }
