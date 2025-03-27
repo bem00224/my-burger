@@ -2,15 +2,15 @@ import React, { useContext } from 'react'
 import styled from 'styled-components';
 import { theme } from '../../../../theme';
 import OrderContext from '../../../../context/OrderContext';
-import { getTabsConfig, getTabSelected } from './tabsConfig';
+import { tabsConfig, getTabSelected } from './tabsConfig';
 
 export default function AdminPanel() {
   const {currentTabSelected} = useContext(OrderContext)
-  const tabs = getTabsConfig(currentTabSelected)
+  const tabs = tabsConfig
   const tabSelected = getTabSelected(tabs,currentTabSelected)
   return (
     <AdminPanelStyled>
-      <div>{currentTabSelected=== tabSelected.index && tabSelected.label}</div>
+      <div>{ tabSelected.label}</div>
     </AdminPanelStyled>
   )
 }
