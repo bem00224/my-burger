@@ -4,7 +4,13 @@ import styled from 'styled-components';
 export default function AddForm() {
   return (
     <AddFormStyled>
-      AddForm
+      <div className="image-preview">ImagePreview</div>
+      <div className="input-fields">
+        <input type="text" placeholder="Nom" />
+        <input type="text" placeholder="Image URL" />
+        <input type="text" placeholder="Prix" />
+      </div>
+      <button className="submit-button">Submit button</button>
     </AddFormStyled>
   )
 }
