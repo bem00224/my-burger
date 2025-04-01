@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
 import OrderContext from '../../../../../context/OrderContext';
+import { FiCheck } from "react-icons/fi"
 
 const EMPTY_PRODUCT = {
   id: "",
@@ -13,6 +14,7 @@ export default function AddForm() {
   //state
   const { handleAdd } = useContext(OrderContext)
   const [ newProduct, setNewProduct ] = useState(EMPTY_PRODUCT)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
 
   //comportements
@@ -24,7 +26,8 @@ export default function AddForm() {
       //id: new Date().getTime()
     }
     handleAdd(newProductToAdd)
-    setNewProduct("")
+    setNewProduct(EMPTY_PRODUCT)
+    displaySuccessMessage()
   }
   
   const handleChange = (e) => {
@@ -32,6 +35,10 @@ export default function AddForm() {
     setNewProduct({...newProduct, [e.target.name]:e.target.value})
   }
  
+  const displaySuccessMessage = () => {
+    setIsSubmitted(true)
+    setTimeout(() => { setIsSubmitted(false)}, 2000 )
+  }
   
   //affichage
   return (
@@ -42,11 +49,19 @@ export default function AddForm() {
         ) : (<div>Aucune image</div>) }
       </div>
       <div className="input-fields">
-        <input type="text" placeholder="Nom" name="title" value={newProduct.title} onChange={handleChange} />
-        <input type="text" placeholder="Image URL" name="imageSource" value={newProduct.imageSource} onChange={handleChange}/>
+        <input type="text" placeholder="Nom du produit (ex: Super Burger)" name="title" value={newProduct.title} onChange={handleChange} />
+        <input type="text" placeholder="Lien URL d'une image (ex: https://la-photo-de-mon-produit.png)" name="imageSource" value={newProduct.imageSource} onChange={handleChange}/>
         <input type="text" placeholder="Prix" name="price" value={newProduct.price ? newProduct.price : ""} onChange={handleChange} />
       </div>
-      <button className="submit-button">Submit button</button>
+      <div className="submit">
+        <button className="submit-button">Submit button</button>
+        {isSubmitted && (
+          <div className="submit-message">
+            <FiCheck />
+            <span>Ajouté avec succès !</span>
+          </div>
+        )}
+      </div>
     </AddFormStyled>
   )
 }
@@ -80,9 +95,18 @@ const AddFormStyled = styled.form`
     display: grid;
   }
 
-  .submit-button {
+  .submit {
     background: green;
     grid-area: 4 / -2 / -1 / -1;
-    width: 50%;
+    display: flex;
+    align-items: center;
+
+    .submit-button {
+      width: 50%;
+    }
+
+    .submit-message {
+      border: 1px solid red;
+    }
   }
 `;
