@@ -19,11 +19,11 @@ const OrderPage = () => {
 
   const handleAdd = (newProduct) => {
     //copy du tableau
-    const newProductCopy = [...menu]
+    const menuCopy = [...menu]
     //manip de la copie du tab
-    const newProductCopyUpdated = [ newProduct,...newProductCopy]
+    const menuUpdated = [ newProduct,...menuCopy]
     //utilisation du setter
-    setMenu(newProductCopyUpdated)
+    setMenu(menuUpdated)
   }
   const orderContextValue = {
     isModeAdmin,

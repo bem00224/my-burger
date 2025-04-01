@@ -1,37 +1,57 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
 import OrderContext from '../../../../../context/OrderContext';
 
 export default function AddForm() {
   //state
   const { handleAdd } = useContext(OrderContext)
+  const [title, setTitle] = useState("")
+  const [price, setPrice] = useState(0)
+  const [imageSource, setImageSource] = useState("")
   
-  const newProduct = {
+  /*const newProduct = {
     id: new Date().getTime(),
     imageSource: "https://mounetlebled.com/wp-content/uploads/2022/11/8691216019805.jpg",
     title: "Nouveau produit",
     price: 7.556,
-  }
+  }*/
 
 
   //comportements
   const handleSubmit = (e) => {
+
+    const newProduct = {
+      id: new Date().getTime(),
+      imageSource: imageSource,
+      title: title,
+      price: price,
+    }
     e.preventDefault()
     handleAdd(newProduct)
   }
   
-  const handleChange = (e) => {
-    console.log("hanChange")
-  }
+  /*const handleChange = (e) => {
+    const { title, price, value } = e.target
+  }*/
+ const handleTitleChange = (e) => {
+   setTitle(e.target.value)
+ }
+ const handlePriceChange = (e) => {
+   setPrice(e.target.value)
+ }
+ const handleImageChange = (e) => {
+  setImageSource(e.target.value)
+ }
+ 
   
   //affichage
   return (
     <AddFormStyled onSubmit={handleSubmit}>
       <div className="image-preview">ImagePreview</div>
       <div className="input-fields">
-        <input type="text" placeholder="Nom" onChange={handleChange} />
-        <input type="text" placeholder="Image URL" onChange={handleChange} />
-        <input type="text" placeholder="Prix" onChange={handleChange} />
+        <input type="text" placeholder="Nom" value={title} onChange={handleTitleChange} />
+        <input type="text" placeholder="Image URL" value={imageSource} onChange={handleImageChange}/>
+        <input type="text" placeholder="Prix" value={price ? price: ""} onChange={handlePriceChange} />
       </div>
       <button className="submit-button">Submit button</button>
     </AddFormStyled>
