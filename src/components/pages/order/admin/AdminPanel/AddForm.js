@@ -12,17 +12,7 @@ const EMPTY_PRODUCT = {
 export default function AddForm() {
   //state
   const { handleAdd } = useContext(OrderContext)
-  //const [title, setTitle] = useState("")
-  //const [price, setPrice] = useState(0)
-  //const [imageSource, setImageSource] = useState("")
   const [ newProduct, setNewProduct ] = useState(EMPTY_PRODUCT)
-  
-  /*const newProduct = {
-    id: new Date().getTime(),
-    imageSource: "https://mounetlebled.com/wp-content/uploads/2022/11/8691216019805.jpg",
-    title: "Nouveau produit",
-    price: 7.556,
-  }*/
 
 
   //comportements
@@ -38,8 +28,8 @@ export default function AddForm() {
   }
   
   const handleChange = (e) => {
-    const {name,value} = e.target
-    setNewProduct({...newProduct, [name]:value})
+    //const {name,value} = e.target
+    setNewProduct({...newProduct, [e.target.name]:e.target.value})
   }
  
   
