@@ -1,22 +1,29 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import Cards from '../../../reusable-ui/Cards'
-import { fakeMenu2 } from '../../../../fakeData/fakeMenu'
 import { formatPrice } from '../../../../utils/maths'
 import styled from 'styled-components'
 import { theme } from '../../../../theme'
+import OrderContext from '../../../../context/OrderContext'
 
 export default function Menu() {
-    const [ menu, setMenu ] = useState(fakeMenu2)
+  //state
+  const {menu} = useContext(OrderContext)
+  
+
+  //comportements
+
+  
+  //affichage
 
   return (
     <MenuStyled className="menu">
       {menu.map(({id, imageSource,price,title}) => {
         return (
             <Cards 
-                key={id}
-                title={title}
-                imageSource={imageSource}
-                leftDescription={formatPrice(price)}
+              key={id}
+              title={title}
+              imageSource={imageSource}
+              leftDescription={formatPrice(price)}
             />
         )
       } )}

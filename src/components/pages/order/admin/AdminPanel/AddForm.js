@@ -1,14 +1,37 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
+import OrderContext from '../../../../../context/OrderContext';
 
 export default function AddForm() {
+  //state
+  const { handleAdd } = useContext(OrderContext)
+  
+  const newProduct = {
+    id: new Date().getTime(),
+    imageSource: "https://mounetlebled.com/wp-content/uploads/2022/11/8691216019805.jpg",
+    title: "Nouveau produit",
+    price: 7.556,
+  }
+
+
+  //comportements
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    handleAdd(newProduct)
+  }
+  
+  const handleChange = (e) => {
+    console.log("hanChange")
+  }
+  
+  //affichage
   return (
-    <AddFormStyled>
+    <AddFormStyled onSubmit={handleSubmit}>
       <div className="image-preview">ImagePreview</div>
       <div className="input-fields">
-        <input type="text" placeholder="Nom" />
-        <input type="text" placeholder="Image URL" />
-        <input type="text" placeholder="Prix" />
+        <input type="text" placeholder="Nom" onChange={handleChange} />
+        <input type="text" placeholder="Image URL" onChange={handleChange} />
+        <input type="text" placeholder="Prix" onChange={handleChange} />
       </div>
       <button className="submit-button">Submit button</button>
     </AddFormStyled>
