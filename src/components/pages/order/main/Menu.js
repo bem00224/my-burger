@@ -4,6 +4,8 @@ import { formatPrice } from '../../../../utils/maths'
 import styled from 'styled-components'
 import { theme } from '../../../../theme'
 import OrderContext from '../../../../context/OrderContext'
+import EmptyMenuClient from './Menu/EmptyMenuClient'
+import EmptyMenuAdmin from './Menu/EmptyMenuAdmin'
 const IMAGE_BY_DEFAULT = "/images/coming-soon.png"
 
 export default function Menu() {
@@ -12,13 +14,9 @@ export default function Menu() {
   
 
   //comportements
-  if(menu.length===0) {
-    return (
-      <div>
-        <span>Pas de produit</span>
-        <button onClick={resetMenu}>Générer de nouveaux produits</button>
-      </div>
-    )
+  if (menu.length === 0) {
+    if (!isModeAdmin) return <EmptyMenuClient />
+    return <EmptyMenuAdmin onReset={resetMenu} />
   }
   
 
