@@ -25,6 +25,14 @@ const OrderPage = () => {
     //utilisation du setter
     setMenu(menuUpdated)
   }
+  const handleDelete =(idOfProductToDelete) => {
+    //1; copy du state
+    const menuCopy = [...menu]
+    //2. manip de la copie du state
+    const menuUpdated = menuCopy.filter((product) => product.id !== idOfProductToDelete)
+    //3.Update du state
+    setMenu(menuUpdated)
+  }
   const orderContextValue = {
     isModeAdmin,
     setIsModeAdmin,
@@ -38,7 +46,8 @@ const OrderPage = () => {
     setCurrentTabSelected,
     menu,
     setMenu,
-    handleAdd
+    handleAdd,
+    handleDelete,
   }
   
   //afichage
