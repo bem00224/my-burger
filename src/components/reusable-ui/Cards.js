@@ -4,12 +4,12 @@ import Button from './Button';
 import { theme } from '../../theme';
 import { TiDelete } from 'react-icons/ti';
 
-export default function Cards({imageSource,title, leftDescription}) {
+export default function Cards({imageSource,title, leftDescription, hasDeleteButton}) {
   return (
     <CardStyled className="produit">
-      <button className='delete-button' aria-label='delete-button'>
+      {hasDeleteButton && (<button className='delete-button' aria-label='delete-button'>
         <TiDelete className='icon'/>
-      </button>
+      </button>)}
       <div className="image">
         <img src={imageSource} alt={title} />
       </div>
