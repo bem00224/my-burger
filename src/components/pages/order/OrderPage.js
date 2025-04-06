@@ -33,6 +33,10 @@ const OrderPage = () => {
     //3.Update du state
     setMenu(menuUpdated)
   }
+  const resetMenu = () => {
+    setMenu(fakeMenu.MEDIUM)
+  }
+  
   const orderContextValue = {
     isModeAdmin,
     setIsModeAdmin,
@@ -48,6 +52,7 @@ const OrderPage = () => {
     setMenu,
     handleAdd,
     handleDelete,
+    resetMenu,
   }
   
   //afichage
