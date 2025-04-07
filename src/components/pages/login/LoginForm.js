@@ -31,14 +31,16 @@ const LoginForm = () => {
                <h2>Connectez-vous</h2>
             </div>
             <div>
-               <Input type="text" 
-                  placeholder="Entrez votre prénom" 
+               <Input
+                  placeholder="Entrez votre prénom"
                   value={username} 
                   onChange={handleChange} 
-                  Icon={<BsPersonCircle className="icon" />} 
+                  Icon={<BsPersonCircle />} 
                   required 
+                  className="input-login"
+                  version="normal"
                />
-               <Button label={"Accéder à mon espace"} Icon={<IoChevronForward className="icon" />} />
+               <Button label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
             </div>
         </LoginFormStyled>
      );
@@ -68,11 +70,7 @@ const LoginFormStyled = styled.form`
     color: ${theme.colors.white};
     font-size: ${theme.fonts.size.P4};
   }
-  .icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: ${theme.fonts.size.P0};
-    margin-left: 10px;
+  .input-login {
+    margin: 18px 0; // must be handled in Parent
   }
 `;
