@@ -1,41 +1,75 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { theme } from '../../theme';
 
-export default function Input({placeholder, value, onChange, Icon}) {
+export default function Input({placeholder,className, onChange, Icon,version = "normal", ...extraProps}) {
   return (
-    <InputStyled>
-        {Icon && Icon}
-        <input placeholder={placeholder} value={value} onChange={onChange} required />
+    <InputStyled className={className} version={version}>
+        <div className="icon">{Icon && Icon}</div>
+        <input onChange={onChange} type="text" {...extraProps} />
     </InputStyled>
   )
 }
+
 const InputStyled = styled.div`
-  background-color: #fff;
   border-radius: ${theme.borderRadius.round};
   display: flex;
   align-items: center;
-  padding: 18px 24px;
-  margin: 18px 0; // could be handle in Parent too
-  /* white-space: nowrap; */
 
   .icon {
-    font-size: ${theme.fonts.size.P0};
-    margin-right: 8px;
-    color: ${theme.colors.greySemiDark};
-    /* min-width: 1em; // that way, the icon size is NOT affected by width of the entire component. */
+    font-size: ${theme.fonts.size.SM};
+    margin: 0 13px 0 8px;
+    display: flex; // to center icon vertically
   }
 
   input {
     border: none;
-    font-size: ${theme.fonts.size.P0};
-    color: ${theme.colors.dark};
+    font-size: ${theme.fonts.size.SM};
     width: 100%;
-    /* display: flex; */
 
     &::placeholder {
-      background: ${theme.colors.white};
       color: ${theme.colors.greyMedium};
     }
   }
-`;
+
+  /* ${(props) => {
+    if (props.version === "normal") return extraStyleNormal
+    if (props.version === "minimalist") return extraStyleMinimalist
+  }} */
+
+  ${({ version }) => extraStyle[version]}
+`
+
+const extraStyleNormal = css`
+  background-color: ${theme.colors.white};
+  padding: 18px 28px;
+  color: ${theme.colors.greySemiDark};
+
+  input {
+    color: ${theme.colors.dark};
+
+    &::placeholder {
+      background: ${theme.colors.white};
+    }
+  }
+`
+
+const extraStyleMinimalist = css`
+  background-color: ${theme.colors.background_white};
+  padding: 8px 16px;
+  color: ${theme.colors.greyBlue};
+
+  input {
+    background: ${theme.colors.background_white}; ////+
+    color: ${theme.colors.dark};
+
+    &:focus {
+      outline: 0; //// add outline
+    }
+  }
+`
+
+const extraStyle = {
+  normal: extraStyleNormal,
+  minimalist: extraStyleMinimalist,
+}
