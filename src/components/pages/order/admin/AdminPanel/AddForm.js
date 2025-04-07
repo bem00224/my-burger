@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
 import OrderContext from '../../../../../context/OrderContext';
-import { FiCheck } from "react-icons/fi"
-import { theme } from '../../../../../theme';
+import { getInputTextsConfig } from './inputTextsConfig';
+import Button from '../../../../reusable-ui/Button';
+import ImagePreview from "./ImagePreview"
+import SubmitMessage from "./SubmitMessage"
+import Input from '../../../../reusable-ui/Input';
 
-const EMPTY_PRODUCT = {
+export const EMPTY_PRODUCT = {
   id: "",
   imageSource: "",
   title: "",
@@ -13,8 +16,7 @@ const EMPTY_PRODUCT = {
 
 export default function AddForm() {
   //state
-  const { handleAdd } = useContext(OrderContext)
-  const [ newProduct, setNewProduct ] = useState(EMPTY_PRODUCT)
+  const { handleAdd, newProduct, setNewProduct } = useContext(OrderContext)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
 
@@ -40,34 +42,31 @@ export default function AddForm() {
     setIsSubmitted(true)
     setTimeout(() => { setIsSubmitted(false)}, 2000 )
   }
+
+  const inputTexts = getInputTextsConfig(newProduct)
   
   //affichage
   return (
     <AddFormStyled onSubmit={handleSubmit}>
-      <div className="image-preview">
-        {newProduct.imageSource ? (
-          <img src={newProduct.imageSource} alt={newProduct.title} />
-        ) : (<div className="empty-image">Aucune image</div>) }
-      </div>
+      <ImagePreview imageSource={newProduct.imageSource} title={newProduct.title} />
       <div className="input-fields">
-        <input type="text" placeholder="Nom du produit (ex: Super Burger)" name="title" value={newProduct.title} onChange={handleChange} />
-        <input type="text" placeholder="Lien URL d'une image (ex: https://la-photo-de-mon-produit.png)" name="imageSource" value={newProduct.imageSource} onChange={handleChange}/>
-        <input type="text" placeholder="Prix" name="price" value={newProduct.price ? newProduct.price : ""} onChange={handleChange} />
+        {inputTexts.map((input) => (
+          <Input {...input} key={input.id} onChange={handleChange} version="minimalist" />
+        ))}
       </div>
       <div className="submit">
-        <button className="submit-button">Submit button</button>
-        {isSubmitted && (
-          <div className="submit-message">
-            <FiCheck />
-            <span>Ajouté avec succès !</span>
-          </div>
-        )}
+        <Button
+          className="submit-button"
+          label={"Ajouter un nouveau produit au menu"}
+          version="success"
+        />
+        {isSubmitted && <SubmitMessage />}
       </div>
     </AddFormStyled>
   )
 }
 const AddFormStyled = styled.form`
-  /*border: 2px solid black;*/
+  /* border: 2px solid black; */
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-template-rows: repeat(4, 1fr);
@@ -76,52 +75,25 @@ const AddFormStyled = styled.form`
   grid-column-gap: 20px;
   grid-row-gap: 8px;
 
-  .image-preview {
-    background: red;
-    grid-area: 1 / 1 / 4 / 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-    .empty-image{
-      /* background-color: green; */
-      height: 100%;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid ${theme.colors.greyLight};
-      line-height: 1.5;
-      color: ${theme.colors.greySemiDark};
-      border-radius: ${theme.borderRadius.round};
-    }
-  }
-
   .input-fields {
-    background: blue;
+    /* background: blue; */
     grid-area: 1 / 2 / -2 / 3;
 
     display: grid;
+    grid-row-gap: 8px;
   }
 
   .submit {
-    background: green;
+    /* background: green; */
     grid-area: 4 / -2 / -1 / -1;
     display: flex;
     align-items: center;
+    position: relative;
+    top: 3px;
 
     .submit-button {
-      width: 50%;
-    }
-
-    .submit-message {
-      border: 1px solid red;
+      /* width: 50%; */
+      height: 100%;
     }
   }
-`;
+`
