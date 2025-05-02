@@ -6,6 +6,7 @@ import { theme } from '../../../theme';
 import OrderContext from '../../../context/OrderContext';
 import { fakeMenu } from '../../../fakeData/fakeMenu';
 import { EMPTY_PRODUCT } from '../../../enums/product';
+import { deepClone } from '../../../utils/array';
 
 const OrderPage = () => {
   //state
@@ -22,7 +23,7 @@ const OrderPage = () => {
 
   const handleAdd = (newProduct) => {
     //copy du tableau
-    const menuCopy = JSON.parse(JSON.stringify(menu))
+    const menuCopy = deepClone(menu)
     //manip de la copie du tab
     const menuUpdated = [ newProduct,...menuCopy]
     //utilisation du setter
@@ -30,7 +31,7 @@ const OrderPage = () => {
   }
   const handleDelete =(idOfProductToDelete) => {
     //1; copy du state
-    const menuCopy = JSON.parse(JSON.stringify(menu))
+    const menuCopy = deepClone(menu)
     //2. manip de la copie du state
     const menuUpdated = menuCopy.filter((product) => product.id !== idOfProductToDelete)
     //3.Update du state
@@ -39,7 +40,7 @@ const OrderPage = () => {
 
   const handleEdit = (productBeingEdited) => {
     // 1. copie du state
-    const menuCopy = JSON.parse(JSON.stringify(menu))
+    const menuCopy = deepClone(menu)
     // 2. manip de la copie du state
     const indexOfProductToEdit = menu.findIndex((menuProduct) => menuProduct.id === productBeingEdited.id )
     menuCopy[indexOfProductToEdit] = productBeingEdited
