@@ -9,7 +9,7 @@ import Input from '../../../../reusable-ui/Input'
 
 export default function EditForm() {
   // state
-  const {productSelected, setProductSelected, handleEdit} = useContext(OrderContext)
+  const {productSelected, setProductSelected, handleEdit, titleEditRef} = useContext(OrderContext)
 
   const inputTexts = getInputTextsConfig(productSelected)
 
@@ -29,7 +29,7 @@ export default function EditForm() {
       <ImagePreview imageSource={productSelected.imageSource} title={productSelected.title} />
       <div className="input-fields">
         {inputTexts.map((input) => (
-          <Input {...input} key={input.id} onChange={handleChange} version="minimalist" />
+          <Input {...input} key={input.id} onChange={handleChange} version="minimalist" ref={input.name === "title" ? titleEditRef : null}/>
         ))}
       </div>
       <div className="submit"></div>

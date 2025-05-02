@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Navbar from './navbar/Navbar';
 import Main from './main/Main';
 import styled from 'styled-components';
@@ -18,6 +18,7 @@ const OrderPage = () => {
   const [ menu, setMenu ] = useState(fakeMenu.MEDIUM)
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT)
   const [productSelected, setProductSelected] = useState(EMPTY_PRODUCT)
+  const titleEditRef = useRef()
 
   //comportements (gestionnaire de state ou "state handlers")
 
@@ -74,6 +75,7 @@ const OrderPage = () => {
     setNewProduct,
     productSelected,
     setProductSelected,
+    titleEditRef,
   }
   
   //afichage
