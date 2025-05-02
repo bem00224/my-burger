@@ -2,37 +2,37 @@ import styled from "styled-components"
 import { getInputTextsConfig } from "./inputTextsConfig"
 import ImagePreview from "./ImagePreview"
 import Input from "../../../../reusable-ui/Input"
-import Button from "../../../../reusable-ui/Button"
-import SubmitMessage from "./SubmitMessage"
+import React from "react"
 
 
-export default function Form({ product, onSubmit, onChange, isSubmitted }) {
-  // state
-
-  // comportements
-
-  const inputTexts = getInputTextsConfig(product)
-
-  // affichage
-  return (
-    <FormStyled onSubmit={onSubmit}>
-      <ImagePreview imageSource={product.imageSource} title={product.title} />
-      <div className="input-fields">
-        {inputTexts.map((input) => (
-          <Input {...input} key={input.id} onChange={onChange} version="minimalist" />
-        ))}
-      </div>
-      <div className="submit">
-        <Button
-          className="submit-button"
-          label={"Ajouter un nouveau produit au menu"}
-          version="success"
-        />
-        {isSubmitted && <SubmitMessage />}
-      </div>
-    </FormStyled>
-  )
-}
+const Form = React.forwardRef(({ product, onSubmit, onChange, QUELQUECHOSE }, ref) => {
+    // state (vide)
+  
+    // comportements (vide)
+  
+    const inputTexts = getInputTextsConfig(product)
+  
+    // affichage
+    return (
+      <FormStyled onSubmit={onSubmit}>
+        <ImagePreview imageSource={product.imageSource} title={product.title} />
+        <div className="input-fields">
+          {inputTexts.map((input) => (
+            <Input
+              {...input}
+              key={input.id}
+              onChange={onChange}
+              version="minimalist"
+              ref={ref && input.name === "title" ? ref : null}
+            />
+          ))}
+        </div>
+        <div className="submit">{QUELQUECHOSE}</div>
+      </FormStyled>
+    )
+  })
+  
+  export default Form
 
 const FormStyled = styled.form`
   /* border: 2px solid black; */
