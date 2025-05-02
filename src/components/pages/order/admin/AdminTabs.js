@@ -4,7 +4,7 @@ import { theme } from '../../../../theme';
 import OrderContext from '../../../../context/OrderContext';
 import Tab from '../../../reusable-ui/Tab';
 import { FaChevronUp,FaChevronDown } from "react-icons/fa";
-import { tabsConfig } from './tabsConfig';
+import { getTabsConfig } from './tabsConfig';
 
 
 
@@ -12,7 +12,7 @@ export default function AdminTabs() {
   //state
   const { isCollapsed, setIsCollapsed, currentTabSelected, setCurrentTabSelected } = useContext(OrderContext)
   
-  const tabs = tabsConfig
+  const tabs = getTabsConfig()
   //comportements
   const selectTab = (tabSelected) => {
     setIsCollapsed(false)
