@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { theme } from '../../../theme';
 import OrderContext from '../../../context/OrderContext';
 import { fakeMenu } from '../../../fakeData/fakeMenu';
-import { EMPTY_PRODUCT } from './admin/AdminPanel/AddForm';
+import { EMPTY_PRODUCT } from '../../../enums/product';
 
 const OrderPage = () => {
   //state
@@ -16,6 +16,7 @@ const OrderPage = () => {
   const [isEditSelected, setIsEditSelected] = useState(false)
   const [ menu, setMenu ] = useState(fakeMenu.MEDIUM)
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT)
+  const [productSelected, setProductSelected] = useState(EMPTY_PRODUCT)
 
   //comportements
 
@@ -57,6 +58,8 @@ const OrderPage = () => {
     resetMenu,
     newProduct,
     setNewProduct,
+    productSelected,
+    setProductSelected,
   }
   
   //afichage

@@ -4,9 +4,9 @@ import Button from './Button';
 import { theme } from '../../theme';
 import { TiDelete } from 'react-icons/ti';
 
-export default function Cards({imageSource,title, leftDescription, hasDeleteButton, onDelete}) {
+export default function Cards({imageSource,title, leftDescription, hasDeleteButton, onDelete, onClick}) {
   return (
-    <CardStyled className="produit">
+    <CardStyled className="produit" onClick={onClick}>
       {hasDeleteButton && (<button className='delete-button' aria-label='delete-button' onClick={onDelete}>
         <TiDelete className='icon'/>
       </button>)}
