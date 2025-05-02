@@ -5,6 +5,11 @@ import { theme } from '../../theme';
 import { TiDelete } from 'react-icons/ti';
 
 export default function Cards({imageSource,title, leftDescription, hasDeleteButton, onDelete, onClick, isHoverable,isSelected,}) {
+  // state (vide)
+
+  // comportements (vide)
+
+  // affichage
   return (
     <CardStyled className="produit" onClick={onClick} isHoverable={isHoverable} isSelected={isSelected}>
       <div className="card">
