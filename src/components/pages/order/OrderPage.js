@@ -19,7 +19,7 @@ const OrderPage = () => {
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT)
   const [productSelected, setProductSelected] = useState(EMPTY_PRODUCT)
 
-  //comportements
+  //comportements (gestionnaire de state ou "state handlers")
 
   const handleAdd = (newProduct) => {
     //copy du tableau

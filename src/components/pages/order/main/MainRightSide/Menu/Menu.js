@@ -13,18 +13,17 @@ export default function Menu() {
   const {menu, isModeAdmin, handleDelete, resetMenu, setProductSelected} = useContext(OrderContext)
   
 
-  //comportements
+  //comportements (gestionnaire de state ou "state handlers")
+  const handleClick = (idProductClicked) => {
+    const productClickedOn = menu.find((product) => product.id === idProductClicked )
+    setProductSelected(productClickedOn)
+  }
+    
+  //affichage
   if (menu.length === 0) {
     if (!isModeAdmin) return <EmptyMenuClient />
     return <EmptyMenuAdmin onReset={resetMenu} />
   }
-  const handleClick = (idProductClicked) => {
-    console.log(idProductClicked)
-    const productSelected = menu.find((product) => product.id === idProductClicked )
-    setProductSelected(productSelected)
-  }
-    
-  //affichage
 
   return (
     <MenuStyled className="menu">

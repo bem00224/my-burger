@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import OrderContext from '../../../../../context/OrderContext'
 import styled from 'styled-components'
 import ImagePreview from './ImagePreview'
