@@ -22,7 +22,7 @@ const OrderPage = () => {
 
   const handleAdd = (newProduct) => {
     //copy du tableau
-    const menuCopy = [...menu]
+    const menuCopy = JSON.parse(JSON.stringify(menu))
     //manip de la copie du tab
     const menuUpdated = [ newProduct,...menuCopy]
     //utilisation du setter
@@ -30,12 +30,24 @@ const OrderPage = () => {
   }
   const handleDelete =(idOfProductToDelete) => {
     //1; copy du state
-    const menuCopy = [...menu]
+    const menuCopy = JSON.parse(JSON.stringify(menu))
     //2. manip de la copie du state
     const menuUpdated = menuCopy.filter((product) => product.id !== idOfProductToDelete)
     //3.Update du state
     setMenu(menuUpdated)
   }
+
+  const handleEdit = (productBeingEdited) => {
+    // 1. copie du state
+    const menuCopy = JSON.parse(JSON.stringify(menu))
+    // 2. manip de la copie du state
+    const indexOfProductToEdit = menu.findIndex((menuProduct) => menuProduct.id === productBeingEdited.id )
+    menuCopy[indexOfProductToEdit] = productBeingEdited
+    // 3. update du state
+    setMenu(menuCopy)
+  }
+  
+
   const resetMenu = () => {
     setMenu(fakeMenu.MEDIUM)
   }
@@ -55,6 +67,7 @@ const OrderPage = () => {
     setMenu,
     handleAdd,
     handleDelete,
+    handleEdit,
     resetMenu,
     newProduct,
     setNewProduct,

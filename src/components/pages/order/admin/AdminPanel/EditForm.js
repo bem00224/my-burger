@@ -4,17 +4,26 @@ import styled from 'styled-components'
 import ImagePreview from './ImagePreview'
 import { getInputTextsConfig } from './inputTextsConfig'
 import Input from '../../../../reusable-ui/Input'
-import { EMPTY_PRODUCT } from '../../../../../enums/product'
+
 
 
 export default function EditForm() {
-  const {productSelected} = useContext(OrderContext)
+  // state
+  const {productSelected, setProductSelected, handleEdit} = useContext(OrderContext)
+
   const inputTexts = getInputTextsConfig(productSelected)
-  const [productBeingEdited, setProductBeingEdited] = useState(EMPTY_PRODUCT)
-  const handleChange = (e) => {
-    setProductBeingEdited({...productBeingEdited, [e.target.name]:e.target.value})
+
+  // comportements (gestionnaires d'événement ou "event handlers")
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    
+    const productBeingEdited = {...productSelected, [name]:value}
+
+    setProductSelected(productBeingEdited) // cette ligne update le formulaire
+    handleEdit(productBeingEdited, event) // cette ligne update le menu
   }
 
+  // affichage
   return (
     <EditFormStyled>
       <ImagePreview imageSource={productSelected.imageSource} title={productSelected.title} />
