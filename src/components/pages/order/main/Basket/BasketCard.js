@@ -148,6 +148,11 @@ cursor: ${({ isModeAdmin }) => (isModeAdmin ? "pointer" : "auto")};
         .icon {
           color: ${theme.colors.dark};
         }
+        &:active {
+          .icon {
+            color: ${theme.colors.white};
+          }
+        }
       }
     }
   }
