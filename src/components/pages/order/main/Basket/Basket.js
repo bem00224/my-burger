@@ -18,5 +18,4 @@ const BasketStyled = styled.div`
   background: pink;
   display: flex;
   flex-direction: column;
-
 `
