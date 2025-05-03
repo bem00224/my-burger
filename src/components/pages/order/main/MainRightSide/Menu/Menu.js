@@ -7,8 +7,8 @@ import OrderContext from '../../../../../../context/OrderContext'
 import EmptyMenuClient from './EmptyMenuClient'
 import EmptyMenuAdmin from './EmptyMenuAdmin'
 import { checkIfProductIsClicked } from './helper'
-import { EMPTY_PRODUCT } from '../../../../../../enums/product'
-const IMAGE_BY_DEFAULT = "/images/coming-soon.png"
+import { EMPTY_PRODUCT, IMAGE_COMING_SOON } from '../../../../../../enums/product'
+import { find } from '../../../../../../utils/array'
 
 export default function Menu() {
   const {
@@ -18,9 +18,9 @@ export default function Menu() {
     resetMenu, 
     productSelected, 
     setProductSelected, 
-    setIsCollapsed, 
-    setCurrentTabSelected, 
-    titleEditRef
+    handleProductSelected,
+    titleEditRef,
+    handleAddToBasket,
   } = useContext(OrderContext)
   //state
   
@@ -28,12 +28,7 @@ export default function Menu() {
   //comportements (gestionnaire de state ou "state handlers")
   const handleClick = async (idProductClicked) => {
     if(!isModeAdmin) return
-
-    await setIsCollapsed(false)
-    await setCurrentTabSelected("edit")
-    const productClickedOn = menu.find((product) => product.id === idProductClicked )
-    await setProductSelected(productClickedOn)
-    titleEditRef.current.focus()
+    handleProductSelected(idProductClicked)
   }
     
   //affichage
@@ -53,6 +48,13 @@ export default function Menu() {
     }
   }
 
+  const handleAddButton = (event, idProductToAdd) => {
+    event.stopPropagation()
+    //const productToAdd = menu.find((menuProduct) => menuProduct.id === idProductToAdd)
+    const productToAdd = find(idProductToAdd, menu)
+    handleAddToBasket(productToAdd)
+  }
+
   return (
     <MenuStyled className="menu">
       {menu.map(({id, imageSource,price,title}) => {
@@ -60,13 +62,14 @@ export default function Menu() {
             <Cards 
               key={id}
               title={title}
-              imageSource={imageSource ? imageSource : IMAGE_BY_DEFAULT}
+              imageSource={imageSource ? imageSource : IMAGE_COMING_SOON}
               leftDescription={formatPrice(price)}
               hasDeleteButton={isModeAdmin}
               onDelete={(event) => handleCardDelete(event, id)}
               onClick={() => handleClick(id) }
               isHoverable={isModeAdmin}
               isSelected={checkIfProductIsClicked(id, productSelected.id)}
+              onAdd={(event) => handleAddButton(event, id)}
             />
         )
       } )}

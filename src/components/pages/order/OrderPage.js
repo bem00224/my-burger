@@ -6,6 +6,8 @@ import { theme } from '../../../theme';
 import OrderContext from '../../../context/OrderContext';
 import { EMPTY_PRODUCT } from '../../../enums/product';
 import { useMenu } from '../../../hooks/useMenu';
+import { useBasket } from '../../../hooks/useBasket';
+import { find } from '../../../utils/array';
 
 const OrderPage = () => {
   //state
@@ -18,6 +20,15 @@ const OrderPage = () => {
   const [productSelected, setProductSelected] = useState(EMPTY_PRODUCT)
   const titleEditRef = useRef()
   const { menu, handleAdd, handleDelete, handleEdit, resetMenu } = useMenu()
+  const { basket, handleAddToBasket, handleDeleteBasketProduct } = useBasket()
+
+  const handleProductSelected = async (idProductClicked) => {
+    await setIsCollapsed(false)
+    await setCurrentTabSelected("edit")
+    const productClickedOn = find(idProductClicked, menu)
+    await setProductSelected(productClickedOn)
+    titleEditRef.current.focus()
+  }
   
   const orderContextValue = {
     isModeAdmin,
@@ -39,7 +50,11 @@ const OrderPage = () => {
     setNewProduct,
     productSelected,
     setProductSelected,
+    handleProductSelected,
     titleEditRef,
+    basket,
+    handleAddToBasket,
+    handleDeleteBasketProduct,
   }
   
   //afichage
