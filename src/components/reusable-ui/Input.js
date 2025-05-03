@@ -2,15 +2,18 @@ import React from 'react'
 import styled, { css } from 'styled-components';
 import { theme } from '../../theme';
 
-export default function Input({placeholder,className, onChange, Icon,version = "normal", ...extraProps}) {
-  return (
-    <InputStyled className={className} version={version}>
+const Input = React.forwardRef(
+  ({ onChange, Icon, className, version = "normal", ...extraProps }, ref) => {
+    return (
+      <InputStyled className={className} version={version}>
         <div className="icon">{Icon && Icon}</div>
-        <input onChange={onChange} type="text" {...extraProps} />
-    </InputStyled>
-  )
-}
+        <input ref={ref} onChange={onChange} type="text" {...extraProps} />
+      </InputStyled>
+    )
+  }
+)
 
+export default Input
 const InputStyled = styled.div`
   border-radius: ${theme.borderRadius.round};
   display: flex;

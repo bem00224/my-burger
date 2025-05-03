@@ -32,7 +32,7 @@ const LoginForm = () => {
             </div>
             <div>
                <Input
-                  placeholder="Entrez votre prénom"
+                  placeholder={"Entrez votre prénom"}
                   value={username} 
                   onChange={handleChange} 
                   Icon={<BsPersonCircle />} 
