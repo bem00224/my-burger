@@ -4,9 +4,9 @@ import { MdDeleteForever } from "react-icons/md"
 import { formatPrice } from "../../../../../utils/maths"
 import { theme } from "../../../../../theme"
 
-export default function BasketCard({ title, price, quantity, imageSource, className }) {
+export default function BasketCard({ title, price, quantity, imageSource, className, isModeAdmin, }) {
   return (
-    <BasketCardStyled className={className}>
+    <BasketCardStyled className={className} isModeAdmin={isModeAdmin}>
       <div className="delete-button">
         <MdDeleteForever className="icon" />
       </div>
@@ -116,7 +116,7 @@ const BasketCardStyled = styled.div`
   }
 
   &:hover {
-    .delete-button-pokemon {
+    .delete-button {
       /* border: 1px solid red; */
       border: none;
       box-sizing: border-box;
