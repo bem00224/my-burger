@@ -7,6 +7,7 @@ import OrderContext from '../../../context/OrderContext';
 import { EMPTY_PRODUCT } from '../../../enums/product';
 import { useMenu } from '../../../hooks/useMenu';
 import { useBasket } from '../../../hooks/useBasket';
+import { find } from '../../../utils/array';
 
 const OrderPage = () => {
   //state
