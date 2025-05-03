@@ -1,19 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import Menu from './MainRightSide/Menu/Menu';
 import { theme } from '../../../../theme/index'
-import Admin from '../admin/Admin';
-import OrderContext from '../../../../context/OrderContext';
 import MainRightSide from './MainRightSide/MainRightSide';
+import Basket from './Basket/Basket';
 
 const Main = () => {
-  //state
-  //comportements
-  //affichage
   
     return (
         <MainStyled>
-            {/* <div className="basket">Basket</div> */}
+            <Basket />
             <MainRightSide/>
         </MainStyled>
     );
@@ -30,5 +25,13 @@ const MainStyled = styled.div`
   box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
 
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 25% 1fr;
+  overflow: hidden;
+
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: 30% 1fr;
+  }
+  @media screen and (max-width: 980px) {
+    grid-template-columns: 40% 1fr;
+  }
 `

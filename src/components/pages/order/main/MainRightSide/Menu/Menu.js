@@ -76,7 +76,8 @@ export default function Menu() {
 const MenuStyled = styled.div`
   background: ${theme.colors.background_white};
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  /*grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));*/
   grid-row-gap: 60px;
   padding: 50px 50px 150px;
   justify-items: center;
@@ -84,4 +85,12 @@ const MenuStyled = styled.div`
   overflow-y: scroll;
   border-bottom-left-radius: ${theme.borderRadius.extraRound};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};
+  
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
 `
