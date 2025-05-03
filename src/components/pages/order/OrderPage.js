@@ -71,5 +71,10 @@ const OrderPageStyled = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: ${theme.borderRadius.extraRound};
+
+    @media screen and (max-width: 1280px) {
+      width: 90%;
+      height: 95vh;
+    }
   }
 `;

@@ -60,4 +60,25 @@ const FormStyled = styled.form`
     position: relative;
     top: 3px;
   }
+
+  @media screen and (max-width: 1024px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 798px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    width: 100%;
+    grid-row-gap: 16px;
+    
+    .input-fields {
+      grid-area: auto;
+    }
+
+    .form-footer {
+      grid-area: auto;
+      justify-content: center;
+    }
+  }
+
 `

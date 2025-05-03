@@ -27,4 +27,11 @@ const MainStyled = styled.div`
   display: grid;
   grid-template-columns: 25% 1fr;
   overflow: hidden;
+
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: 30% 1fr;
+  }
+  @media screen and (max-width: 980px) {
+    grid-template-columns: 40% 1fr;
+  }
 `

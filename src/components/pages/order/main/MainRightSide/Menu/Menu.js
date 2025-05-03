@@ -85,4 +85,12 @@ const MenuStyled = styled.div`
   overflow-y: scroll;
   border-bottom-left-radius: ${theme.borderRadius.extraRound};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};
+  
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
 `
