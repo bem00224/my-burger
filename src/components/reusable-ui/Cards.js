@@ -11,7 +11,7 @@ export default function Cards({imageSource,title, leftDescription, hasDeleteButt
 
   // affichage
   return (
-    <CardStyled className="produit" onClick={onClick} isHoverable={isHoverable} isSelected={isSelected}>
+    <CardStyled className="produit" onClick={onClick} $isHoverable={isHoverable} $isSelected={isSelected}>
       <div className="card">
         {hasDeleteButton && (
           <button className='delete-button' aria-label='delete-button' onClick={onDelete}><TiDelete className='icon'/> </button>)}
@@ -33,7 +33,7 @@ export default function Cards({imageSource,title, leftDescription, hasDeleteButt
 }
 
 const CardStyled = styled.div`
-  ${({ isHoverable }) => isHoverable && hoverableStyle}
+  ${({ $isHoverable }) => $isHoverable && hoverableStyle}
   border-radius: ${theme.borderRadius.extraRound};
   /* border: 1px solid red; */
   height: 330px;
@@ -144,7 +144,7 @@ const CardStyled = styled.div`
       }
     }
 
-    ${({ isHoverable, isSelected }) => isHoverable && isSelected && selectedStyle}
+    ${({ $isHoverable, $isSelected }) => $isHoverable && $isSelected && selectedStyle}
   }
 `
 

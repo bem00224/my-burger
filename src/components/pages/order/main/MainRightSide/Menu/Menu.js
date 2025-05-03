@@ -11,13 +11,24 @@ import { EMPTY_PRODUCT } from '../../../../../../enums/product'
 const IMAGE_BY_DEFAULT = "/images/coming-soon.png"
 
 export default function Menu() {
+  const {
+    menu, 
+    isModeAdmin, 
+    handleDelete, 
+    resetMenu, 
+    productSelected, 
+    setProductSelected, 
+    setIsCollapsed, 
+    setCurrentTabSelected, 
+    titleEditRef
+  } = useContext(OrderContext)
   //state
-  const {menu, isModeAdmin, handleDelete, resetMenu, productSelected, setProductSelected, setIsCollapsed, setCurrentTabSelected, titleEditRef,} = useContext(OrderContext)
   
 
   //comportements (gestionnaire de state ou "state handlers")
   const handleClick = async (idProductClicked) => {
     if(!isModeAdmin) return
+
     await setIsCollapsed(false)
     await setCurrentTabSelected("edit")
     const productClickedOn = menu.find((product) => product.id === idProductClicked )
@@ -34,8 +45,12 @@ export default function Menu() {
   const handleCardDelete = (event, idProductToDelete) => {
     event.stopPropagation()
     handleDelete(idProductToDelete)
-    idProductToDelete === productSelected.id && setProductSelected(EMPTY_PRODUCT)
-    titleEditRef.current.focus()
+    if (idProductToDelete === productSelected.id) {
+      setProductSelected(EMPTY_PRODUCT);
+    }
+    if (titleEditRef?.current) {
+      titleEditRef.current.focus();
+    }
   }
 
   return (
