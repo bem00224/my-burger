@@ -20,6 +20,14 @@ const OrderPage = () => {
   const titleEditRef = useRef()
   const { menu, handleAdd, handleDelete, handleEdit, resetMenu } = useMenu()
   const { basket, handleAddToBasket, handleDeleteBasketProduct } = useBasket()
+
+  const handleProductSelected = async (idProductClicked) => {
+    await setIsCollapsed(false)
+    await setCurrentTabSelected("edit")
+    const productClickedOn = find(idProductClicked, menu)
+    await setProductSelected(productClickedOn)
+    titleEditRef.current.focus()
+  }
   
   const orderContextValue = {
     isModeAdmin,
@@ -41,6 +49,7 @@ const OrderPage = () => {
     setNewProduct,
     productSelected,
     setProductSelected,
+    handleProductSelected,
     titleEditRef,
     basket,
     handleAddToBasket,

@@ -1,15 +1,17 @@
-import React, { useContext } from 'react'
-import styled from 'styled-components'
-import Total from './Total'
-import { formatPrice } from '../../../../../utils/maths'
-import Footer from './Footer'
-import EmptyBasket from './EmptyBasket'
-import OrderContext from '../../../../../context/OrderContext'
-import BasketProducts from './BasketProducts'
-import { theme } from '../../../../../theme'
+import styled from "styled-components"
+import Total from "./Total"
+import Footer from "./Footer"
+import { useContext } from "react"
+import OrderContext from "../../../../../context/OrderContext"
+import { formatPrice } from "../../../../../utils/maths"
+import BasketProducts from "./BasketProducts"
+import { theme } from "../../../../../theme"
+import EmptyBasket from "./EmptyBasket"
+
 
 export default function Basket() {
-  const { basket, isModeAdmin,  handleDeleteBasketProduct } = useContext(OrderContext)
+  const { basket } = useContext(OrderContext)
+
   const isBasketEmpty = basket.length === 0
 
   const sumToPay = basket.reduce((total, basketProduct) => {
@@ -19,20 +21,13 @@ export default function Basket() {
 
   return (
     <BasketStyled>
-        <Total amountToPay={formatPrice(sumToPay)} />
-        {isBasketEmpty ? (
-        <EmptyBasket />
-      ) : (
-        <BasketProducts
-          basket={basket}
-          isModeAdmin={isModeAdmin}
-          handleDeleteBasketProduct={handleDeleteBasketProduct}
-        />
-      )}
-        <Footer/>
+      <Total amountToPay={formatPrice(sumToPay)} />
+      {isBasketEmpty ? <EmptyBasket /> : <BasketProducts />}
+      <Footer />
     </BasketStyled>
   )
 }
+
 const BasketStyled = styled.div`
   background: ${theme.colors.background_white};
   box-shadow: ${theme.shadows.basket};
