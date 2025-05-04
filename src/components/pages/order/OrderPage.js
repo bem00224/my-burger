@@ -7,7 +7,7 @@ import OrderContext from '../../../context/OrderContext';
 import { EMPTY_PRODUCT } from '../../../enums/product';
 import { useMenu } from '../../../hooks/useMenu';
 import { useBasket } from '../../../hooks/useBasket';
-import { find } from '../../../utils/array';
+import { findObjectById } from '../../../utils/array';
 
 const OrderPage = () => {
   //state
@@ -23,9 +23,9 @@ const OrderPage = () => {
   const { basket, handleAddToBasket, handleDeleteBasketProduct } = useBasket()
 
   const handleProductSelected = async (idProductClicked) => {
+    const productClickedOn = findObjectById(idProductClicked, menu)
     await setIsCollapsed(false)
     await setCurrentTabSelected("edit")
-    const productClickedOn = find(idProductClicked, menu)
     await setProductSelected(productClickedOn)
     titleEditRef.current.focus()
   }
