@@ -1,12 +1,14 @@
-import React, { useContext } from "react"
+import React from "react"
+import { useContext } from "react"
 import styled from "styled-components"
-import OrderContext from "../../../../../context/OrderContext"
-import { IMAGE_COMING_SOON } from "../../../../../enums/product"
 import BasketCard from "./BasketCard"
+import { findObjectById } from "../../../../../utils/array"
+import { IMAGE_COMING_SOON } from "../../../../../enums/product"
+import OrderContext from "../../../../../context/OrderContext"
 import { checkIfProductIsClicked } from "../MainRightSide/Menu/helper"
 
 export default function BasketProducts() {
-  const { basket, isModeAdmin, handleDeleteBasketProduct, handleProductSelected, productSelected } =
+  const { basket, isModeAdmin, handleDeleteBasketProduct, menu, handleProductSelected , productSelected,} =
     useContext(OrderContext)
 
   const handleOnDelete = (event, id) => {
@@ -14,25 +16,24 @@ export default function BasketProducts() {
     handleDeleteBasketProduct(id)
   }
 
-  const handleCardClick = (id) => {
-    if (!isModeAdmin) return
-    handleProductSelected(id)
-  }
-
   return (
     <BasketProductsStyled>
-      {basket.map((basketProduct) => (
-        <div className="basket-card" key={basketProduct.id}>
-          <BasketCard
-            {...basketProduct}
-            imageSource={basketProduct.imageSource ? basketProduct.imageSource : IMAGE_COMING_SOON}
-            onDelete={(event) => handleOnDelete(event, basketProduct.id)}
-            isClickable={isModeAdmin}
-            onClick={() => handleCardClick(basketProduct.id)}
-            isSelected={checkIfProductIsClicked(basketProduct.id, productSelected.id)}
-          />
-        </div>
-      ))}
+      {basket.map((basketProduct) => {
+        const menuProduct = findObjectById(basketProduct.id, menu)
+        return (
+          <div className="basket-card" key={basketProduct.id}>
+            <BasketCard
+              {...menuProduct}
+              imageSource={menuProduct.imageSource ? menuProduct.imageSource : IMAGE_COMING_SOON}
+              quantity={basketProduct.quantity}
+              onDelete={(event) => handleOnDelete(event, basketProduct.id)}
+              isClickable={isModeAdmin}
+              onClick={isModeAdmin ? () => handleProductSelected(basketProduct.id) : null}
+              isSelected={checkIfProductIsClicked(basketProduct.id, productSelected.id)}
+            />
+          </div>
+        )
+      })}
     </BasketProductsStyled>
   )
 }

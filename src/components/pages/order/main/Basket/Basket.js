@@ -3,26 +3,20 @@ import Total from "./Total"
 import Footer from "./Footer"
 import { useContext } from "react"
 import OrderContext from "../../../../../context/OrderContext"
-import { formatPrice } from "../../../../../utils/maths"
 import BasketProducts from "./BasketProducts"
 import { theme } from "../../../../../theme"
 import EmptyBasket from "./EmptyBasket"
+import { isEmpty } from "../../../../../utils/array"
 
 
 export default function Basket() {
   const { basket } = useContext(OrderContext)
 
-  const isBasketEmpty = basket.length === 0
-
-  const sumToPay = basket.reduce((total, basketProduct) => {
-    total += basketProduct.price * basketProduct.quantity
-    return total
-  }, 0)
 
   return (
     <BasketStyled>
-      <Total amountToPay={formatPrice(sumToPay)} />
-      {isBasketEmpty ? <EmptyBasket /> : <BasketProducts />}
+      <Total />
+      {isEmpty(basket) ? <EmptyBasket /> : <BasketProducts />}
       <Footer />
     </BasketStyled>
   )

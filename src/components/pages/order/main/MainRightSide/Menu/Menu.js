@@ -8,7 +8,7 @@ import EmptyMenuClient from './EmptyMenuClient'
 import EmptyMenuAdmin from './EmptyMenuAdmin'
 import { checkIfProductIsClicked } from './helper'
 import { EMPTY_PRODUCT, IMAGE_COMING_SOON } from '../../../../../../enums/product'
-import { find } from '../../../../../../utils/array'
+import { isEmpty } from '../../../../../../utils/array'
 
 export default function Menu() {
   const {
@@ -17,42 +17,34 @@ export default function Menu() {
     handleDelete, 
     resetMenu, 
     productSelected, 
-    setProductSelected, 
-    handleProductSelected,
-    titleEditRef,
+    setProductSelected,
     handleAddToBasket,
+    handleDeleteBasketProduct,
+    handleProductSelected,
   } = useContext(OrderContext)
   //state
   
 
   //comportements (gestionnaire de state ou "state handlers")
-  const handleClick = async (idProductClicked) => {
-    if(!isModeAdmin) return
-    handleProductSelected(idProductClicked)
-  }
-    
-  //affichage
-  if (menu.length === 0) {
-    if (!isModeAdmin) return <EmptyMenuClient />
-    return <EmptyMenuAdmin onReset={resetMenu} />
-  }
 
   const handleCardDelete = (event, idProductToDelete) => {
     event.stopPropagation()
     handleDelete(idProductToDelete)
+    handleDeleteBasketProduct(idProductToDelete)
     if (idProductToDelete === productSelected.id) {
       setProductSelected(EMPTY_PRODUCT);
-    }
-    if (titleEditRef?.current) {
-      titleEditRef.current.focus();
     }
   }
 
   const handleAddButton = (event, idProductToAdd) => {
     event.stopPropagation()
-    //const productToAdd = menu.find((menuProduct) => menuProduct.id === idProductToAdd)
-    const productToAdd = find(idProductToAdd, menu)
-    handleAddToBasket(productToAdd)
+    handleAddToBasket(idProductToAdd)
+  }
+
+   // affichage
+   if (isEmpty(menu)) {
+    if (!isModeAdmin) return <EmptyMenuClient />
+    return <EmptyMenuAdmin onReset={resetMenu} />
   }
 
   return (
@@ -66,7 +58,7 @@ export default function Menu() {
               leftDescription={formatPrice(price)}
               hasDeleteButton={isModeAdmin}
               onDelete={(event) => handleCardDelete(event, id)}
-              onClick={() => handleClick(id) }
+              onClick={isModeAdmin ? () => handleProductSelected(id) : null}
               isHoverable={isModeAdmin}
               isSelected={checkIfProductIsClicked(id, productSelected.id)}
               onAdd={(event) => handleAddButton(event, id)}
