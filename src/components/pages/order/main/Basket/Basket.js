@@ -7,12 +7,13 @@ import { formatPrice } from "../../../../../utils/maths"
 import BasketProducts from "./BasketProducts"
 import { theme } from "../../../../../theme"
 import EmptyBasket from "./EmptyBasket"
+import { isEmpty } from "../../../../../utils/array"
 
 
 export default function Basket() {
-  const { basket } = useContext(OrderContext)
+  const { basket, isModeAdmin, handleDeleteBasketProduct } = useContext(OrderContext)
 
-  const isBasketEmpty = basket.length === 0
+  const isBasketEmpty = isEmpty(basket)
 
   const sumToPay = basket.reduce((total, basketProduct) => {
     total += basketProduct.price * basketProduct.quantity
@@ -22,7 +23,15 @@ export default function Basket() {
   return (
     <BasketStyled>
       <Total amountToPay={formatPrice(sumToPay)} />
-      {isBasketEmpty ? <EmptyBasket /> : <BasketProducts />}
+      {isBasketEmpty ? (
+        <EmptyBasket />
+      ) : (
+        <BasketProducts
+          basket={basket}
+          isModeAdmin={isModeAdmin}
+          handleDeleteBasketProduct={handleDeleteBasketProduct}
+        />
+      )}
       <Footer />
     </BasketStyled>
   )

@@ -8,7 +8,7 @@ import EmptyMenuClient from './EmptyMenuClient'
 import EmptyMenuAdmin from './EmptyMenuAdmin'
 import { checkIfProductIsClicked } from './helper'
 import { EMPTY_PRODUCT, IMAGE_COMING_SOON } from '../../../../../../enums/product'
-import { find } from '../../../../../../utils/array'
+import { findObjectById, isEmpty } from '../../../../../../utils/array'
 
 export default function Menu() {
   const {
@@ -17,10 +17,12 @@ export default function Menu() {
     handleDelete, 
     resetMenu, 
     productSelected, 
-    setProductSelected, 
-    handleProductSelected,
+    setProductSelected,
+    setIsCollapsed,
+    setCurrentTabSelected, 
     titleEditRef,
     handleAddToBasket,
+    handleDeleteBasketProduct,
   } = useContext(OrderContext)
   //state
   
@@ -28,11 +30,15 @@ export default function Menu() {
   //comportements (gestionnaire de state ou "state handlers")
   const handleClick = async (idProductClicked) => {
     if(!isModeAdmin) return
-    handleProductSelected(idProductClicked)
+    await setIsCollapsed(false)
+    await setCurrentTabSelected("edit")
+    const productClickedOn = findObjectById(idProductClicked, menu)
+    await setProductSelected(productClickedOn)
+    titleEditRef.current.focus()
   }
     
   //affichage
-  if (menu.length === 0) {
+  if (isEmpty(menu)) {
     if (!isModeAdmin) return <EmptyMenuClient />
     return <EmptyMenuAdmin onReset={resetMenu} />
   }
@@ -40,6 +46,7 @@ export default function Menu() {
   const handleCardDelete = (event, idProductToDelete) => {
     event.stopPropagation()
     handleDelete(idProductToDelete)
+    handleDeleteBasketProduct(idProductToDelete)
     if (idProductToDelete === productSelected.id) {
       setProductSelected(EMPTY_PRODUCT);
     }
@@ -50,8 +57,7 @@ export default function Menu() {
 
   const handleAddButton = (event, idProductToAdd) => {
     event.stopPropagation()
-    //const productToAdd = menu.find((menuProduct) => menuProduct.id === idProductToAdd)
-    const productToAdd = find(idProductToAdd, menu)
+    const productToAdd = findObjectById(idProductToAdd, menu)
     handleAddToBasket(productToAdd)
   }
 
